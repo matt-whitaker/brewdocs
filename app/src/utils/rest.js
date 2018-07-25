@@ -5,7 +5,8 @@ const baseUrl = process.env.API_URL || '/';
 const getResource = (resource) => () => request
     .get(`${baseUrl}/${resource}`)
     .set('Accept', 'application/json')
-    .ok(res => res.status < 400);
+    .ok(res => res.status < 400)
+    .then(({ body }) => body);
 
 const createResource = (resource) => (data) => request
     .post(`${baseUrl}/${resource}`)
@@ -13,6 +14,7 @@ const createResource = (resource) => (data) => request
     .set('Accept', 'application/json')
     .send(data)
     .ok(res => res.status < 400)
+    .then(({ body }) => body)
 ;
 
 export default {
